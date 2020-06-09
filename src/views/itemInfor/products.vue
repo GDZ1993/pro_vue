@@ -12,32 +12,41 @@
         <a-form-item label="所属区域:">
           <a-input placeholder="请输入所属区域" class="input-item"/>
         </a-form-item>
-        <a-form-item label="项目状态:" v-if="form_show">
-          <a-select placeholder="请选择项目状态" class="input-item">
-            <a-select-option value="jack"> Jack</a-select-option>
-          </a-select>
-        </a-form-item>
-        <a-form-item label="项目性质:" v-if="form_show">
-          <a-select placeholder="请选择项目性质" class="input-item">
-            <a-select-option value="jack"> Jack</a-select-option>
-          </a-select>
-        </a-form-item>
-        <a-form-item label="项目类型:" v-if="form_show">
-          <a-select placeholder="请选择项目类型" class="input-item">
-            <a-select-option value="jack"> Jack</a-select-option>
-          </a-select>
-        </a-form-item>
-        <a-form-item>
+        <div v-if="form_show">
+          <a-form-item label="项目状态:">
+            <a-select placeholder="请选择项目状态" class="input-item">
+              <a-select-option value="jack"> Jack</a-select-option>
+            </a-select>
+          </a-form-item>
+          <a-form-item label="项目性质:">
+            <a-select placeholder="请选择项目性质" class="input-item">
+              <a-select-option value="jack"> Jack</a-select-option>
+            </a-select>
+          </a-form-item>
+          <a-form-item label="项目类型:">
+            <a-select placeholder="请选择项目类型" class="input-item">
+              <a-select-option value="jack"> Jack</a-select-option>
+            </a-select>
+          </a-form-item>
+          <a-form-item>
+            <a-button type="primary">查询</a-button>
+            <a-button>重置</a-button>
+            <a-button type="link" @click="form_show = !form_show">{{ form_show ? '收起' : '展开' }}</a-button>
+          </a-form-item>
+        </div>
+        <a-form-item v-if="!form_show">
           <a-button type="primary">查询</a-button>
           <a-button>重置</a-button>
           <a-button type="link" @click="form_show = !form_show">{{ form_show ? '收起' : '展开' }}</a-button>
         </a-form-item>
       </a-form>
+      <a-button type="primary" style="margin-bottom: 20px" @click="add_project">添加项目</a-button>
       <a-table :columns="columns" :data-source="tableData" rowKey="id" :pagination="pageConfig" :scroll="{ x: $store.getters.scroll_x }">
         <a-button type="link" slot="operation" slot-scope="row" @click="detailsEvent(row)">详情</a-button>
       </a-table>
     </a-card>
-    <DetailsModal :entity="detailsModal" @handleOk="handleOk" @cancel="detailsModal = null"></DetailsModal>
+    <DetailsModal :entity="detailsModal" @handleOk="handleOk" @cancel="detailsModal = null"/>
+    <AddModal :show="addModal" @cancel="addModal=false"/>
   </page-header-wrapper>
 </template>
 
@@ -45,7 +54,8 @@
   export default {
     name: 'ItemInfor',
     components: {
-      DetailsModal: () => import('./components/DetailsModal.vue')
+      DetailsModal: () => import('./components/DetailsModal.vue'),
+      AddModal: () => import('./components/AddModal.vue')
     },
     data() {
       return {
@@ -179,10 +189,14 @@
             this.pageConfig.defaultCurrent = a
           }
         },
-        detailsModal: null
+        detailsModal: null,
+        addModal: false
       }
     },
     methods: {
+      add_project () {
+        this.addModal = true
+      },
       handleOk () {
       },
       handleSubmit() {

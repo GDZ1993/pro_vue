@@ -12,7 +12,8 @@ const getters = {
   addRouters: state => state.permission.addRouters,
   multiTab: state => state.app.multiTab,
   scroll_x: state => state.app.scroll_x,
-  modalWidth: state => state.app.modalWidth
+  modalWidth: state => state.app.modalWidth,
+  innerWidth: state => state.app.innerWidth
 }
 
 export default getters

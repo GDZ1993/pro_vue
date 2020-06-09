@@ -32,12 +32,13 @@ const app = {
     lang: 'en-US',
     _antLocale: {},
     scroll_x: 0,
-    modalWidth: 750
+    modalWidth: 750,
+    innerWidth: 670
   },
   mutations: {
     on_scroll(state, width) {
       width < 1800 ? state.scroll_x = 1800 : state.scroll_x = 0
-      width < 800 ? state.modalWidth = 90 : state.modalWidth = 750
+      width < 800 ? (state.modalWidth = 90, state.innerWidth = width * 0.8) : (state.modalWidth = 750, state.innerWidth = 670)
     },
     [SIDEBAR_TYPE]: (state, type) => {
       state.sideCollapsed = type

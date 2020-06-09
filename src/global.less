@@ -119,6 +119,37 @@ ol {
 p{
   margin: 0;
 }
+.modal-div {
+  width: 100%;
+  height: calc(100vh - 200px);
+  overflow-y: auto;
+  padding: 12px 24px;
+}
+
+.modal-div .ant-divider-horizontal {
+  margin: 16px 0;
+}
+
+.modal-div::-webkit-scrollbar {
+  width: 5px;
+  background: white;
+  border-radius: 10px;
+}
+
+.modal-div::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+.modal-div::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.modal-div .ant-form-item-label > label{
+  color:rgba(0,0,0,0.65);
+}
+
 .row-div{
   display: flex;
   flex-direction: row;
@@ -137,7 +168,12 @@ p{
   justify-content: space-between;
   align-items: center;
 }
-
+.column-div{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 
 

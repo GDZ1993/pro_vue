@@ -97,7 +97,8 @@ export default {
         }, 16)
       })
     }
-
+    const settings = localStorage.getItem('settings')
+    settings ? this.settings = JSON.parse(settings) : ''
     // first update color
     updateTheme(this.settings.primaryColor)
   },
@@ -120,7 +121,6 @@ export default {
       this.collapsed = val
     },
     handleSettingChange ({ type, value }) {
-      console.log('type', type, value)
       type && (this.settings[type] = value)
       switch (type) {
         case 'contentWidth':
@@ -135,6 +135,7 @@ export default {
           }
           break
       }
+      localStorage.setItem('settings', JSON.stringify(this.settings))
     },
     logoRender () {
       return <LogoSvg />

@@ -208,12 +208,15 @@ export default {
     onColorWeak (checked) {
       this.$store.dispatch('ToggleWeak', checked)
       updateColorWeak(checked)
+      this.doCopy()
     },
     onMultiTab (checked) {
       this.$store.dispatch('ToggleMultiTab', checked)
+      this.doCopy()
     },
     handleMenuTheme (theme) {
       this.$store.dispatch('ToggleTheme', theme)
+      this.doCopy()
     },
     doCopy () {
       // get current settings from mixin or this.$store.state.app, pay attention to the property name
@@ -241,21 +244,27 @@ export default {
       this.$store.dispatch('ToggleLayoutMode', mode)
       // 因为顶部菜单不能固定左侧菜单栏，所以强制关闭
       this.handleFixSiderbar(false)
+      this.doCopy()
     },
     handleContentWidthChange (type) {
       this.$store.dispatch('ToggleContentWidth', type)
+      this.doCopy()
     },
     changeColor (color) {
       if (this.primaryColor !== color) {
         this.$store.dispatch('ToggleColor', color)
         updateTheme(color)
       }
+      console.log('changeColor----------------------')
+      this.doCopy()
     },
     handleFixedHeader (fixed) {
       this.$store.dispatch('ToggleFixedHeader', fixed)
+      this.doCopy()
     },
     handleFixedHeaderHidden (autoHidden) {
       this.$store.dispatch('ToggleFixedHeaderHidden', autoHidden)
+      this.doCopy()
     },
     handleFixSiderbar (fixed) {
       if (this.layoutMode === 'topmenu') {
@@ -263,6 +272,7 @@ export default {
         return
       }
       this.$store.dispatch('ToggleFixSiderbar', fixed)
+      this.doCopy()
     }
   }
 }

@@ -9,6 +9,9 @@
     class="modal-item"
     :width="$store.getters.modalWidth > 100 ? $store.getters.modalWidth+'px':$store.getters.modalWidth +'%'">
     <div class="modal-div">
+      <a-card :headStyle="headStyle" class="card-item">
+        <Steps :index="1"></Steps>
+      </a-card>
       <a-card title="基本信息" :headStyle="headStyle" class="card-item">
         <div class="row-start form-item">
           <div class="form-label fl70">项目名称：</div>
@@ -148,6 +151,9 @@
 
 <script>
   export default {
+    components: {
+      Steps: () => import('./Steps.vue')
+    },
     name: 'DetailsModal',
     props: {
       entity: {
@@ -166,7 +172,7 @@
         },
         intro: null,
         introStr: '老山隧道是江苏省最长和跨度最大的高速公路隧道之一，是宁淮（南京—淮安）高速公路南京江北段全线的咽喉工程，它的建成将给美丽复的老山风景区增加一道亮丽的风景线。在建设过程中，隧道淮安方向出口处，遭遇山体滑坡和地下溶洞，阻碍施工进程，制严重影响工程施工和工程进度。为了进一步查明该段内边坡滑坡体及棚洞',
-        headStyle: { fontSize: '14px', fontWeight: 'bold', color: '#000000' }
+        headStyle: { fontSize: '14px', fontWeight: 'bold', color: 'rgba(0,0,0,0.65)' }
 
       }
     },
@@ -177,20 +183,19 @@
     },
     methods: {
       introClick () {
-        this.form.intro.length > 143 ? this.introChange() : this.form.intro = this.form.intro.substring(0, 140) + this.introStr.substring(140, this.introStr.length)
+        this.form.intro.length > 120 ? this.introChange() : this.form.intro = this.form.intro.substring(0, 117) + this.introStr.substring(117, this.introStr.length)
       },
       handleSubmit() {
       },
       okClick() {
         this.$emit('handleOk')
-        this.handleCancel()
       },
       cancel() {
         this.show = false
         this.$emit('cancel')
       },
       introChange() {
-        this.introStr.length > 143 ? this.form.intro = this.introStr.substring(0, 140) + '...' : ''
+        this.introStr.length > 120 ? this.form.intro = this.introStr.substring(0, 117) + '...' : ''
       }
     },
     beforeMount() {
@@ -204,39 +209,12 @@
     border: none;
   }
 
-  .modal-div {
-    width: 100%;
-    height: calc(100vh - 200px);
-    overflow-y: auto;
-    padding: 12px 24px;
-  }
-
-  .modal-div .ant-divider-horizontal {
-    margin: 16px 0;
-  }
-
-  .modal-div::-webkit-scrollbar {
-    width: 5px;
-    background: white;
-    border-radius: 10px;
-  }
-
-  .modal-div::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
-  }
-
-  .modal-div::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background: rgba(0, 0, 0, 0.45);
-  }
-
   .form-item {
     margin-bottom: 16px;
   }
 
   .form-label {
-    font-size: 12px;
+    font-size: 14px;
     font-family: Microsoft YaHei;
     font-weight: 400;
     line-height: 22px;
@@ -244,26 +222,18 @@
   }
 
   .form-text {
-    font-size: 12px;
+    font-size: 14px;
     font-family: Microsoft YaHei;
     font-weight: 400;
     color: rgba(0, 0, 0, 0.65);
   }
 
   .fl70 {
-    width: 70px;
+    width: 80px;
   }
 
   .ft70 {
-    width: calc(100% - 70px)
-  }
-
-  .fl120 {
-    width: 120px;
-  }
-
-  .ft120 {
-    width: calc(100% - 120px)
+    width: calc(100% - 80px)
   }
 
   .three-points {
@@ -273,8 +243,9 @@
   }
 
   .three-points > div {
-    width: calc(100% / 3);
+    min-width: calc(100% / 3);
     align-items: flex-start;
+    flex-wrap: wrap;
   }
 
   .card-item {
