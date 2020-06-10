@@ -41,12 +41,14 @@
         </a-form-item>
       </a-form>
       <a-button type="primary" style="margin-bottom: 20px" @click="add_project">添加项目</a-button>
+      <a-button type="primary" style="margin-left: 20px" @click="recordModal = true">项目履历</a-button>
       <a-table :columns="columns" :data-source="tableData" rowKey="id" :pagination="pageConfig" :scroll="{ x: $store.getters.scroll_x }">
         <a-button type="link" slot="operation" slot-scope="row" @click="detailsEvent(row)">详情</a-button>
       </a-table>
     </a-card>
     <DetailsModal :entity="detailsModal" @handleOk="handleOk" @cancel="detailsModal = null"/>
     <AddModal :show="addModal" @cancel="addModal=false"/>
+    <Record :show="recordModal" @cancel="recordModal=false"/>
   </page-header-wrapper>
 </template>
 
@@ -55,7 +57,8 @@
     name: 'ItemInfor',
     components: {
       DetailsModal: () => import('./components/DetailsModal.vue'),
-      AddModal: () => import('./components/AddModal.vue')
+      AddModal: () => import('./components/AddModal.vue'),
+      Record: () => import('./components/Record.vue')
     },
     data() {
       return {
@@ -190,7 +193,8 @@
           }
         },
         detailsModal: null,
-        addModal: false
+        addModal: false,
+        recordModal: false
       }
     },
     methods: {
